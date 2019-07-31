@@ -1,0 +1,29 @@
+ul  {
+    list-style: none;
+}
+
+#todoitem{
+    background: none;
+    border: none;
+    font-size: 1.6em;
+    padding-left: 1.5em;
+    position: relative;
+}
+
+.checked:before {
+    background: url('checked.svg');
+    content: '';
+    height: 1em;
+    left:0;
+    position: absolute;
+    width: 1em;
+}
+
+.unchecked:before {
+    background: url('unchecked.svg');
+    content: '';
+    height: 1em;
+    left:0;
+    position: absolute;
+    width: 1em;
+}
