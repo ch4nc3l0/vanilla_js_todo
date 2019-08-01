@@ -2,7 +2,8 @@ ul  {
     list-style: none;
 }
 
-#todoitem{
+
+.todoitem {
     background: none;
     border: none;
     display: block;
@@ -11,7 +12,7 @@ ul  {
     position: relative;
 }
 
-.checked:before {
+.checked::before{
     background: url('checked.svg');
     content: '';
     height: 1em;

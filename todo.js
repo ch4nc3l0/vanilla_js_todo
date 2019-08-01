@@ -1,35 +1,12 @@
 // Wait until DOM completly loaded to assign element id(s)
 window.addEventListener("DOMContentLoaded", ()=>{
     let todoList = document.getElementById("todoList");
-    let todoItem = document.getElementById("todoItem");
 })
-
 // make todo array
 let todo = [];
 
-// add todos to DOM
-function blah(arr){
-    let counter = arr.length - 1
-    for (; counter >= 0; counter-- ) {
-        // Assign item to counter
-        let item = arr[counter]
-        // Create btn element
-        let btn = document.createElement("BUTTON");
-        // Assign id into btn
-        btn.id = ('todoItem')
-        // Assign data into button
-        btn.append(item.data)
-        // Put btn into the todoList
-        todoList.append(btn)
-    }
-}
-
-blah(todo);
-
 // make every todo an object with marked, checked off, date values, is working on
 // example generated with default values
-
-
 
 // initialize todo counter  ****move data to db for persistant data****
 let todoCount = 0;
@@ -47,18 +24,45 @@ function addTodo(){
     }
     console.log(newTodo) // ********DEBUGGING REMOVE*************
 
-    while (todoList.firstChild){
-    todoList.removeChild(todoList.firstChild)
-    }
-
-    todoCount++;
-
-    todo.push(newTodo)
-    blah(todo)
-
+    todoCount++; // Increment todo counter
+    todoHandler(newTodo); // Add new todo to the DOM
 }
+
+// Add todos to the DOM
+function todoHandler(newTodo){
+    // Add new todo into the todo array
+    todo.push(newTodo);
+    // Create a new button for the todo to live
+    todoObject = document.createElement('BUTTON');
+    // Assign todo the correct id
+    todoObject.id = "todoItem" + newTodo.id
+    // Assign todo the correct class
+    todoObject.className = "todoItem unchecked"
+    // Assign ischecked function to button
+    todoObject.setAttribute("onClick", `isChecked(${newTodo.id})`) // Use template literal
+    // Assign todo the user-input data
+    todoObject.append(newTodo.data)
+    // Insert the newtodo into the todoList
+    todoList.appendChild(todoObject)
+}
+
 // be able to check off todos
-    
+function isChecked(itemID){
+    let selectedTodo = todo[itemID];
+    let todoDOMId = document.getElementById(`todoItem${itemID}`);
+    if (selectedTodo.isChecked === true){
+        todoDOMId.classList.remove("checked");
+        todoDOMId.classList.add("unchecked");
+        selectedTodo.isChecked = false; 
+        console.log(selectedTodo.isChecked)
+    }
+    else{
+        todoDOMId.classList.remove("unchecked");
+        todoDOMId.classList.add("checked");
+        selectedTodo.isChecked = true; 
+        console.log(selectedTodo.isChecked)
+    }
+}
 
 // be able to delete todos
 
