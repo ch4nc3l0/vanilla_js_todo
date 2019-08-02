@@ -31,6 +31,8 @@ function todoHandler(newTodo){
     todo.push(newTodo);
     // Create a container for the todo
     const todoItemDiv = document.createElement('div');
+    // Create a unique Id for todoItemDiv
+    todoItemDiv.id = `todoItemDiv${newTodo.id}`
     // Create class for todo div
     todoItemDiv.className = "todoItemDiv"
     // Create a new button for the todo to live
@@ -45,8 +47,10 @@ function todoHandler(newTodo){
     todoObject.append(newTodo.data);
     // Create the delete button
     const delTodo = document.createElement('BUTTON');
-
+    // Assign class to delTodo button
     delTodo.className = "delTodo"
+    // Assign onclick to delBtn
+    delTodo.setAttribute("onClick", `deleteTodo(${newTodo.id})`)
     // Insert the newtodo into the todoList
     todoItemDiv.append(todoObject);
     // Insert delete button into todoObject
@@ -74,8 +78,11 @@ function isChecked(itemID){
 }
 
 // be able to delete todos
-function deleteTodo(){
-
+function deleteTodo(itemID){
+    let selectedTodo = todo[itemID]; // Select correct todo
+    let todoDOMId = document.getElementById(`todoItemDiv${itemID}`);
+    todo.splice(selectedTodo, 1);
+    todoDOMId.remove();
 }
 
 
