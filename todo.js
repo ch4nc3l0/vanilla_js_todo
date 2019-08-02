@@ -5,9 +5,6 @@ window.addEventListener("DOMContentLoaded", ()=>{
 // make todo array
 let todo = [];
 
-// make every todo an object with marked, checked off, date values, is working on
-// example generated with default values
-
 // initialize todo counter  ****move data to db for persistant data****
 let todoCount = 0;
 
@@ -32,23 +29,35 @@ function addTodo(){
 function todoHandler(newTodo){
     // Add new todo into the todo array
     todo.push(newTodo);
+    // Create a container for the todo
+    const todoItemDiv = document.createElement('div');
+    // Create class for todo div
+    todoItemDiv.className = "todoItemDiv"
     // Create a new button for the todo to live
-    todoObject = document.createElement('BUTTON');
+    const todoObject = document.createElement('BUTTON');
     // Assign todo the correct id
-    todoObject.id = "todoItem" + newTodo.id
+    todoObject.id = "todoItem" + newTodo.id;
     // Assign todo the correct class
-    todoObject.className = "todoItem unchecked"
+    todoObject.className = "todoItem unchecked";
     // Assign ischecked function to button
-    todoObject.setAttribute("onClick", `isChecked(${newTodo.id})`) // Use template literal
+    todoObject.setAttribute("onClick", `isChecked(${newTodo.id})`); // Use template literal
     // Assign todo the user-input data
-    todoObject.append(newTodo.data)
+    todoObject.append(newTodo.data);
+    // Create the delete button
+    const delTodo = document.createElement('BUTTON');
+
+    delTodo.className = "delTodo"
     // Insert the newtodo into the todoList
-    todoList.appendChild(todoObject)
+    todoItemDiv.append(todoObject);
+    // Insert delete button into todoObject
+    todoItemDiv.append(delTodo);
+    // Insert the todoItemDiv into the todoList
+    todoList.appendChild(todoItemDiv);
 }
 
 // be able to check off todos
 function isChecked(itemID){
-    let selectedTodo = todo[itemID];
+    let selectedTodo = todo[itemID]; // Select correct todo
     let todoDOMId = document.getElementById(`todoItem${itemID}`);
     if (selectedTodo.isChecked === true){
         todoDOMId.classList.remove("checked");
@@ -65,6 +74,10 @@ function isChecked(itemID){
 }
 
 // be able to delete todos
+function deleteTodo(){
+
+}
+
 
 // be able to sort todos
 
