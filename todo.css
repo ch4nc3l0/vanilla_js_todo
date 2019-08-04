@@ -32,7 +32,6 @@ ul  {
 
 .delTodo{
     display: flex;
-    background: black;
 }
 
 .todoItemDiv{

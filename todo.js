@@ -34,11 +34,7 @@ function todoHandler(newTodo){
     // Create a new button for the todo to live
     const todoObject = createTodoObject(newTodo);
     // Create the delete button
-    const delTodo = document.createElement('BUTTON');
-    // Assign class to delTodo button
-    delTodo.className = "delTodo"
-    // Assign onclick to delBtn
-    delTodo.setAttribute("onClick", `deleteTodo(${newTodo.id})`)
+    const delTodo = createDeleteTodo(newTodo);
     // Insert the newtodo into the todoList
     todoItemDiv.append(todoObject);
     // Insert delete button into todoObject
@@ -99,6 +95,19 @@ function createTodoObject(newTodo){
     todoObject.append(newTodo.data);
     // Return todoObject
     return todoObject;
+}
+
+function createDeleteTodo(newTodo){
+    // Create the delete button
+    const delTodo = document.createElement('BUTTON');
+    // Assign class to delTodo button
+    delTodo.className = "delTodo"
+    // Add delete text to button
+    delTodo.append("Delete")
+    // Assign onclick to delBtn
+    delTodo.setAttribute("onClick", `deleteTodo(${newTodo.id})`)
+    // Return deleteTodo
+    return delTodo;
 }
 
 // be able to sort todos
