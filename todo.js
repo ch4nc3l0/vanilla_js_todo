@@ -13,12 +13,20 @@ if ( isNaN(todoCount) ){
     localStorage.setItem("todoCount", todoCount);
 }
 
+// Read localstorage for a preffered sort
+let sortMethod = (localStorage.getItem("sortMethod"));
+// If sortMethod is not created, create it, set default sort and save to localstorage
+if (sortMethod === null){
+    sortMethod = "Des";
+    localStorage.setItem("sortMethod", sortMethod);
+}
+
 // If localdata is not empty show last todos in created order
 let oldTodos = retrieve();
 if (oldTodos != null){
     todo = todo.concat(oldTodos);
     // Paint to DOM
-    sortAsc();
+    checkSortMethod();
 }
 
 
@@ -37,7 +45,10 @@ function addTodo(){
 
     todoCount++; // Increment todo counter
     localStorage.setItem("todoCount", todoCount);
-    todoHandler(newTodo); // Add new todo to the DOM
+    //    todoHandler(newTodo); // Add new todo to the DOM
+    // Add new todo into the todo array
+    todo.push(newTodo);
+    checkSortMethod();
     storeTodo(todo);
 }
 
@@ -150,6 +161,8 @@ function sortAsc(){
         // Insert the todoItemDiv into the todoList
         todoList.appendChild(todoItemDiv);
     })
+    sortMethod = "Asc";
+    localStorage.setItem("sortMethod", sortMethod)
 }
 
 function sortDes(){
@@ -168,6 +181,23 @@ function sortDes(){
         // Insert the todoItemDiv into the todoList
         todoList.appendChild(todoItemDiv);
     })
+    sortMethod = "Des";
+    localStorage.setItem("sortMethod", sortMethod)
+}
+
+function checkSortMethod(){
+    if (sortMethod === "Des"){
+        return sortDes();
+    }
+    else if (sortMethod === "Asc"){
+        return sortAsc();
+    }
+    else if (sortMethod === "ABC"){
+
+    }
+    else{
+        console.log("Error checking sort method");
+    }
 }
 
 
