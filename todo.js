@@ -2,22 +2,21 @@
 window.addEventListener("DOMContentLoaded", ()=>{
     let todoList = document.getElementById("todoList");
 })
-// make todo array
+// Make todo array
 let todo = [];
-
-// initialize todo counter  ****move data to db for persistant data****
-// check if there is a todocount  if there is then read it if not create one
-// Add simple persistant storage using localstorage
+// Create the todo counter
+// Read the localstorage to check if todocount is already used
 let todoCount = parseInt(localStorage.getItem("todoCount"));
+// If todocount is not created, create it and save to localstorage
 if ( isNaN(todoCount) ){
     todoCount = 0;
     localStorage.setItem("todoCount", todoCount);
 }
 
-// If localdata is not empty show last todos
-let getter = retrieve();
-if (getter != null){
-    todo = todo.concat(getter);
+// If localdata is not empty show last todos in created order
+let oldTodos = retrieve();
+if (oldTodos != null){
+    todo = todo.concat(oldTodos);
     // Paint to DOM
     todo.map((todo)=>{
         // Create a container for the todo
@@ -150,7 +149,7 @@ function createDeleteTodo(newTodo){
 // be able to sort todos
 
 
-// Persistant Storage --- Change to save on edit
+// Persistant Storage 
 function storeTodo(arr){
     localStorage.setItem("key", JSON.stringify(arr));
     console.log("store");
