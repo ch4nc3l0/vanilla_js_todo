@@ -160,7 +160,7 @@ function sortAsc(){
         todoItemDiv.append(delTodo);
         // Insert the todoItemDiv into the todoList
         todoList.appendChild(todoItemDiv);
-    })
+    });
     sortMethod = "Asc";
     localStorage.setItem("sortMethod", sortMethod)
 }
@@ -180,9 +180,44 @@ function sortDes(){
         todoItemDiv.append(delTodo);
         // Insert the todoItemDiv into the todoList
         todoList.appendChild(todoItemDiv);
-    })
+    });
     sortMethod = "Des";
     localStorage.setItem("sortMethod", sortMethod)
+}
+
+function sortAbc(){
+    removeDomTodos();
+    // problem is not comparing data of array cant read into object
+    todo.slice(0).sort((a,b)=>{
+        let dataA = a.data.toLowerCase();
+        let dataB = b.data.toLowerCase();
+        if (dataA < dataB){
+            return -1;
+        }
+        else if (dataA > dataB){
+            return 1;
+        }
+        else{
+            console.log("Abc sorting error");
+            return 0;
+        }
+    }).map((todo)=>{
+        // Create a container for the todo
+        const todoItemDiv = createTodoItemDiv(todo);
+        // Create a new button for the todo to live
+        const todoObject = createTodoObject(todo);
+        // Create the delete button
+        const delTodo = createDeleteTodo(todo);
+        // Insert the newtodo into the todoList
+        todoItemDiv.append(todoObject);
+        // Insert delete button into todoObject
+        todoItemDiv.append(delTodo);
+        // Insert the todoItemDiv into the todoList
+        todoList.appendChild(todoItemDiv);
+    });
+    sortMethod = "Abc";
+    localStorage.setItem("sortMethod", sortMethod)
+
 }
 
 function checkSortMethod(){
@@ -192,8 +227,8 @@ function checkSortMethod(){
     else if (sortMethod === "Asc"){
         return sortAsc();
     }
-    else if (sortMethod === "ABC"){
-
+    else if (sortMethod === "Abc"){
+        return sortAbc();
     }
     else{
         console.log("Error checking sort method");
