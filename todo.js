@@ -18,20 +18,7 @@ let oldTodos = retrieve();
 if (oldTodos != null){
     todo = todo.concat(oldTodos);
     // Paint to DOM
-    todo.map((todo)=>{
-        // Create a container for the todo
-        const todoItemDiv = createTodoItemDiv(todo);
-        // Create a new button for the todo to live
-        const todoObject = createTodoObject(todo);
-        // Create the delete button
-        const delTodo = createDeleteTodo(todo);
-        // Insert the newtodo into the todoList
-        todoItemDiv.append(todoObject);
-        // Insert delete button into todoObject
-        todoItemDiv.append(delTodo);
-        // Insert the todoItemDiv into the todoList
-        todoList.appendChild(todoItemDiv);
-    })
+    sortAsc();
 }
 
 
@@ -147,7 +134,49 @@ function createDeleteTodo(newTodo){
 }
 
 // be able to sort todos
+function sortAsc(){
+    removeDomTodos();
+    todo.map((todo)=>{
+        // Create a container for the todo
+        const todoItemDiv = createTodoItemDiv(todo);
+        // Create a new button for the todo to live
+        const todoObject = createTodoObject(todo);
+        // Create the delete button
+        const delTodo = createDeleteTodo(todo);
+        // Insert the newtodo into the todoList
+        todoItemDiv.append(todoObject);
+        // Insert delete button into todoObject
+        todoItemDiv.append(delTodo);
+        // Insert the todoItemDiv into the todoList
+        todoList.appendChild(todoItemDiv);
+    })
+}
 
+function sortDes(){
+    removeDomTodos();
+    todo.slice(0).reverse().map((todo)=>{
+        // Create a container for the todo
+        const todoItemDiv = createTodoItemDiv(todo);
+        // Create a new button for the todo to live
+        const todoObject = createTodoObject(todo);
+        // Create the delete button
+        const delTodo = createDeleteTodo(todo);
+        // Insert the newtodo into the todoList
+        todoItemDiv.append(todoObject);
+        // Insert delete button into todoObject
+        todoItemDiv.append(delTodo);
+        // Insert the todoItemDiv into the todoList
+        todoList.appendChild(todoItemDiv);
+    })
+}
+
+
+// Remove all painted todos
+function removeDomTodos(){
+    while (document.getElementsByClassName("todoItemDiv")[0]) {
+        document.getElementsByClassName("todoItemDiv")[0].remove();
+    }
+}
 
 // Persistant Storage 
 function storeTodo(arr){
